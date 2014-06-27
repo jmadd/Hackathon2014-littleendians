@@ -16,9 +16,6 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 
-/**
- * Created by vilaaron on 6/27/2014.
- */
 public class DrawingBoard extends View {
 
     float scaleX;
@@ -71,7 +68,6 @@ public class DrawingBoard extends View {
         scaleX = (float) frameBufferWidth / width;
         scaleY = (float) frameBufferHeight / height;
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
