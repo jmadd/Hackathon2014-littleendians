@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MorphActivity" >
+    <com.app.morphit.morphit.morph.DrawingBoard
+        android:id ="@+id/drawBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+
+    <com.app.morphit.morphit.morph.ViewingBoard
+        android:id ="@+id/viewBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View"
+        android:id="@+id/buttonView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
