@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ViewFlipper
+        android:id= "@+id/flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.app.morphit.morphit.morph.DrawingBoard
+            android:id ="@+id/drawBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <com.app.morphit.morphit.morph.ViewingBoard
+            android:id ="@+id/viewBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+
+    </ViewFlipper>
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFCCCCCC"
     android:orientation="vertical"
 
     tools:context=".MorphActivity" >
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -45,11 +65,9 @@
             android:src="@drawable/save" />
 
     </LinearLayout>
-    <com.app.morphit.morphit.morph.DrawingBoard
-        android:id ="@+id/drawBoard"
-        android:layout_width="match_parent"
-        android:layout_height="399dp"
-    />
+
+
+
 
 
     <LinearLayout
@@ -64,6 +82,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
+
+
+
 
             <ImageButton
                 android:layout_width="@dimen/large_brush"
@@ -210,3 +231,6 @@
 
 
     </LinearLayout>
+
+
+    </FrameLayout>
