@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Hackathon2014-littleendians.iml" filepath="$PROJECT_DIR$/Hackathon2014-littleendians.iml" />
-<<<<<<< HEAD
-=======
       <module fileurl="file://$PROJECT_DIR$/MorphIt.iml" filepath="$PROJECT_DIR$/MorphIt.iml" />
->>>>>>> 674f0f33bd3c1cae17c36d4c11982655e24bc8bc
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

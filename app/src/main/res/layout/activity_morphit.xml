@@ -201,17 +201,15 @@
             android:layout_width="64dp"
             android:layout_height="65dp"
             android:contentDescription="@string/erase"
-            android:src="@drawable/eraser" /><![CDATA[
-
-
-
-        />
-
-
-
-
-    ]]>
+            android:src="@drawable/eraser" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Animation"
+        android:id="@+id/playButton"
+        android:layout_gravity="center_horizontal|bottom" />
 
 
 </FrameLayout>

@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class JitterPoints {
 
-    private static final int NUM_SCENES = 4;
-    private static final double JITTER_RANGE = 5;
+    private static final int NUM_SCENES = 5;
+    private static final double JITTER_RANGE = 4;
 
 
     public static void testJitterPoints() {
@@ -49,7 +49,7 @@ public class JitterPoints {
             outputPoints.add(sceneOutputPoints);
         }
 
-        //outputPoints = smooth(outputPoints);
+        // outputPoints = smooth(outputPoints);
         return outputPoints;
     }
 

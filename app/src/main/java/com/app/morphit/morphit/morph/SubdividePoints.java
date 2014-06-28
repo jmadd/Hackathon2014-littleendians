@@ -40,11 +40,13 @@ public class SubdividePoints {
         }
 
         //Add first input set
-        outputPointSet.set(0, (inputPointSet.get(0)));
 
         for(int i = 0; i < NUM_POINT_SETS_INPUT-1; i++) {
             ArrayList<MyPoint> points1 = inputPointSet.get(i);
             ArrayList<MyPoint> points2 = inputPointSet.get(i+1);
+
+            outputPointSet.set(i*NUM_POINT_SETS_OUTPUT, (inputPointSet.get(i)));
+
 
             for(int j = 0; j < NUM_POINTS_PER_SET; j++) {
                 double x1 = points1.get(j).x;

@@ -68,6 +68,14 @@ public class MorphActivity extends Activity {
         currPaint = (ImageButton) paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
 
+        Button playAnim = (Button) findViewById(R.id.playButton);
+        playAnim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawingDone();
+            }
+        });
+
 
         View.OnClickListener handler = new View.OnClickListener() {
             public void onClick(View v) {
@@ -123,9 +131,6 @@ public class MorphActivity extends Activity {
 
 
     static void drawingDone() {
-
-
-
         // create an array of arrays of points from the array of paths.
         ArrayList<ArrayList<MyPoint>> tempInitialPointSets = new ArrayList<ArrayList<MyPoint>>();
         int max = -1;
@@ -133,17 +138,19 @@ public class MorphActivity extends Activity {
             ArrayList<MyPoint> pointSet = convertPathToPoints(p,20);
             if(max < pointSet.size())
                 max = pointSet.size();
-            if(pointSet.size() > 2)
+            if(pointSet.size() > 4)
                 tempInitialPointSets.add(convertPathToPoints(p, 20));
         }
         // now that we have a max, we normalize all points to this.
 
-        if(max <= 2)
+        if(max <= 4)
             return;
         for(int i = 0; i < tempInitialPointSets.size(); i++) {
             initialPointSets.add(normalize(tempInitialPointSets.get(i), max));
             Log.d("length", "" + i + " " + initialPointSets.get(i).size());
         }
+
+        SubdividePoints.NUM_POINT_SETS_INPUT = initialPointSets.size();
 
         flipper.showNext();
 
