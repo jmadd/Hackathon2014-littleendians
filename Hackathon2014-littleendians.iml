@@ -12,12 +12,12 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
     </content>
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
     <orderEntry type="jdk" jdkName="JDK" jdkType="JavaSDK" />
 =======
     <orderEntry type="inheritedJdk" />
->>>>>>> 674f0f33bd3c1cae17c36d4c11982655e24bc8bc
+>>>>>>> 674f0f33bd3c1cae17c36d4c11982655e24bc8bc -->
     <orderEntry type="sourceFolder" forTests="false" />
-  </component>
+  </component
 </module>
 
