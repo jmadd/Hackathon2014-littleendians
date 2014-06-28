@@ -35,7 +35,7 @@ public class ViewingBoard extends View {
     public Bitmap mBitmap;
     public Canvas mCanvas;
 
-    private static final int DELAY = 140; //delay between frames in milliseconds
+    private static final int DELAY = 60; //delay between frames in milliseconds
     private int play_frame = 0;
     private long last_tick = 0;
     private boolean mIsPlaying = false;
@@ -45,7 +45,7 @@ public class ViewingBoard extends View {
 
 
     ArrayList<Point> currentPoints = new ArrayList<Point>();
-
+    ArrayList<ArrayList<MyPoint>> pointSets = new ArrayList<ArrayList<MyPoint>>();
     public ViewingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
         mPath = new Path();
@@ -89,11 +89,7 @@ public class ViewingBoard extends View {
         mBitmap.eraseColor(Color.BLUE);
 
         // draw paths
-        Log.d("arrays", "VIEWER! " + MorphActivity.firstImagePoints.size() + " " + MorphActivity.secondImagePoints.size());
-
-        drawPathFromPoints(MorphActivity.firstImagePoints);
-        drawPathFromPoints(MorphActivity.secondImagePoints);
-        canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
+       // Log.d("arrays", "VIEWER! " + MorphActivity.firstImagePoints.size() + " " + MorphActivity.secondImagePoints.size());
 
 
 
@@ -101,7 +97,7 @@ public class ViewingBoard extends View {
 
 
 
-        if(play_frame == numTotalFrames)
+        if(play_frame == pointSets.size()) // how many sets
         {
             play_frame = 0;
         }
@@ -115,7 +111,7 @@ public class ViewingBoard extends View {
         }
         else if (mIsPlaying)
         {
-            if (play_frame >= numTotalFrames)
+            if (play_frame >= pointSets.size())
             {
              //   mIsPlaying = false;
                 play_frame = 0;
@@ -130,20 +126,21 @@ public class ViewingBoard extends View {
                 if (time >= DELAY) //the delay time has passed. set next frame
                 {
                     last_tick = System.currentTimeMillis();
-
-                   // canvas.drawBitmap(Di);
+                    drawPathFromPoints2(pointSets.get(play_frame));
                     play_frame++;
-                    drawNextFrame(); // gets the current points (so if we are at the start it will get firstPoints, and calculates the next set, and draws the path)
+
                     postInvalidate();
                 }
                 else //still within delay. redraw current frame
                 {
-                   // canvas.drawBitmap(DispatchActivity.game.sessionFrames.get(play_frame), draw_x, draw_y, mPaint);
-                    drawCurrentPoints(); // draws current point array
+                    drawPathFromPoints2(pointSets.get(play_frame));
                     postInvalidate();
                 }
             }
         }
+       // drawPathFromPoints(MorphActivity.firstImagePoints);
+       // drawPathFromPoints(MorphActivity.secondImagePoints);
+        canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
     }
 
 
@@ -181,17 +178,55 @@ public class ViewingBoard extends View {
         }
     }
 
+
+
+    public void drawPathFromPoints2(ArrayList<MyPoint> points) {
+        Path mPath = new Path();
+        int mX;
+        int mY;
+
+        for(int i = 0; i < points.size(); i++) {
+            MyPoint p = points.get(i);
+            if(i == 0) {
+                mPath.reset();
+
+                mPath.moveTo((float)p.x, (float)p.y);
+                mX = (int)p.x;
+                mY = (int)p.y;
+            }
+
+            if(i > 0 && i < points.size() - 1) {
+                MyPoint prevPoint = points.get(i - 1);
+                mPath.quadTo((float)prevPoint.x, (float)prevPoint.y, (float) (p.x + prevPoint.x) / 2,(float) (p.y + prevPoint.y) / 2);
+            }
+
+            if(i == points.size() - 1) {
+                mCanvas.drawPath(mPath, mPaint);
+                mPath.reset();
+            }
+        }
+    }
+
+
     public void startDrawing() {
 
         // calculate all frames
 
-        ArrayList<ArrayList<MyPoint>> pointSets = ;
-        SubdividePoints.runSubdividePoints();
+
+        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.firstImagePoints.size();
+        pointSets = SubdividePoints.runSubdividePoints(convert(MorphActivity.firstImagePoints), convert(MorphActivity.secondImagePoints));
 
         currentPoints = MorphActivity.firstImagePoints;
         mStartPlaying = true;
         postInvalidate();
     }
 
+    public ArrayList<MyPoint> convert(ArrayList<Point> points) {
+        ArrayList<MyPoint> result = new ArrayList<MyPoint>();
+        for(Point p : points) {
+            result.add(new MyPoint((double)p.x, (double)p.y));
+        }
+        return result;
+    }
 
 }

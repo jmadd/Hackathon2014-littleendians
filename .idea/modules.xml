@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Hackathon2014-littleendians.iml" filepath="$PROJECT_DIR$/Hackathon2014-littleendians.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MorphIt.iml" filepath="$PROJECT_DIR$/MorphIt.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

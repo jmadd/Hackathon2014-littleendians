@@ -59,8 +59,8 @@ public class MorphActivity extends Activity {
 
     static void drawingDone() {
 
-        ArrayList<Point> points1 = convertPathToPoints(path1, 5);
-        ArrayList<Point> points2 = convertPathToPoints(path2, 5);
+        ArrayList<Point> points1 = convertPathToPoints(path1, 10);
+        ArrayList<Point> points2 = convertPathToPoints(path2, 10);
         Log.d("arrays", "" + points1.size() + " " + points2.size());
         // divide small by bigger one to get a factor
         double factor = 0.0;
