@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Instructions"
+        android:text="     Welcome to MorphIt! "
         android:id="@+id/title"
         android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal" />
@@ -21,7 +21,7 @@
         android:textSize="25sp"
         android:layout_margin="20dp"
         android:layout_marginBottom="3dp"
-        android:text="           Welcome to MorphIt!  To Morph, simply choose a color and draw any picture you'd like. As soon as you release your finger, you may choose another color and draw a new picture. When you are done, simply press the Play button and MorphIt will Morph your images from one to another."
+        android:text="To Morph, simply choose a color and draw any picture you'd like. As soon as you release your finger, you may choose another color and draw a new picture. When you are done, simply press the Play button and MorphIt will Morph your images from one to another."
         android:id="@+id/textView"
         android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"

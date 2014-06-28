@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:text="Play Animation"
         android:id="@+id/playButton"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_gravity="right|bottom" />
 
 
 </FrameLayout>

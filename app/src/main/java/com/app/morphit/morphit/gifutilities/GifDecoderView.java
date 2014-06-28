@@ -36,8 +36,8 @@ public class GifDecoderView extends ImageView {
         new Thread(new Runnable() {
             public void run() {
                 final int n = mGifDecoder.getFrameCount();
-                final int ntimes = mGifDecoder.getLoopCount();
-                //final int ntimes = 0;
+                //final int ntimes = mGifDecoder.getLoopCount();
+                final int ntimes = 0;
                 Log.i(TAG, "n:"+Integer.toString(n));
                 Log.i(TAG, "ntimes:"+Integer.toString(ntimes));
                 int repetitionCounter = 0;
@@ -57,7 +57,7 @@ public class GifDecoderView extends ImageView {
                     if(ntimes != 0) {
                         repetitionCounter ++;
                     }
-                }while (mIsPlayingGif && (repetitionCounter < ntimes));
+                }while (mIsPlayingGif && (repetitionCounter <= ntimes));
             }
         }).start();
     }
