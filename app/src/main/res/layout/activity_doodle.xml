@@ -191,11 +191,11 @@
             android:layout_weight="0.03" />
 
         <ImageButton
-            android:id="@+id/erase"
+            android:id="@+id/save_btn"
             android:layout_width="64dp"
             android:layout_height="65dp"
-            android:contentDescription="@string/erase"
-            android:src="@drawable/eraser" />
+            android:contentDescription="Save"
+            android:src="@drawable/save" />
 
 
     </LinearLayout>

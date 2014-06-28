@@ -162,12 +162,11 @@ public class DrawingBoard extends View {
 
         MorphActivity.initialPaths.add(new Path(mPath));
 
-
-        numDrawings++;
+     /*   numDrawings++;
         if(numDrawings > 4) {
             numDrawings = 0;
             MorphActivity.drawingDone();
-        }
+        }*/
         mPath.reset();
         mPath = new Path();
     }

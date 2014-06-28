@@ -14,40 +14,33 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="MorphIt"
+        android:text="Morph-It!"
         android:textSize="45sp"
         android:id="@+id/buttonMorph"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
         android:clickable="false"
         android:ellipsize="none"
-        android:layout_alignParentEnd="false"
         android:height="150dp"
         android:shadowDx="5.0"
-        android:background="@drawable/menu_button"/>
+        android:background="@drawable/menu_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp"
+        android:theme="@style/AppTheme" />
 
 
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Doodle with Friends"
-        android:textSize="45sp"
-        android:id="@+id/buttonDoodleFriends"
-        android:layout_below="@+id/buttonDoodle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:height="150dp"
-        android:background="@drawable/menu_button"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Doodle"
+        android:text="Doodle!"
         android:textSize="45sp"
         android:id="@+id/buttonDoodle"
-        android:layout_below="@+id/buttonMorph"
-        android:layout_centerHorizontal="true"
         android:height="150dp"
-        android:background="@drawable/menu_button"/>
+        android:background="@drawable/menu_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="62dp" />
+
 </RelativeLayout>

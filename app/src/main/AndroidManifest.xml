@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.morphit.morphit" >
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:maxSdkVersion="17"
@@ -13,6 +15,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainMenu"
+			android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,14 +26,19 @@
 
         <activity
             android:name=".morph.MorphActivity"
-
+			android:screenOrientation="portrait"
             android:label="MorphIt" >
 
         </activity>
         <activity
             android:name=".morph.DoodleActivity"
-
+			android:screenOrientation="portrait"
             android:label="MorphIt" >
+
+        </activity>
+        <activity
+            android:name=".morph.MorphInstructions"
+            android:label="MorphItInstructions" >
 
         </activity>
     </application>

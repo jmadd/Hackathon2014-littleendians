@@ -44,8 +44,9 @@ public class ViewingBoard extends View {
     int numTotalFrames = 30;
 
 
-    ArrayList<MyPoint> currentPoints = new ArrayList<MyPoint>();
-    ArrayList<ArrayList<MyPoint>> pointSets = new ArrayList<ArrayList<MyPoint>>();
+
+    ArrayList<MyPath> pointSets = new ArrayList<MyPath>();
+
     public ViewingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
         mPath = new Path();
@@ -86,11 +87,11 @@ public class ViewingBoard extends View {
     protected void onDraw(Canvas canvas) {
         canvas.scale((float) width / 480.0f, (float) height / 800.0f);
 
-        mBitmap.eraseColor(Color.BLUE);
 
+        mBitmap.eraseColor(Color.WHITE);
         // draw paths
        // Log.d("arrays", "VIEWER! " + MorphActivity.firstImagePoints.size() + " " + MorphActivity.secondImagePoints.size());
-
+        mIsPlaying = true;
         if(play_frame == pointSets.size()) // how many sets
         {
             play_frame = 0;
@@ -105,40 +106,41 @@ public class ViewingBoard extends View {
         }
         else if (mIsPlaying)
         {
+
             if (play_frame >= pointSets.size())
             {
-             //   mIsPlaying = false;
-                play_frame = 0;
-                mStartPlaying = false;
-                mIsPlaying = true;
+                mIsPlaying = false;
             }
             else
             {
+
                 long time = (System.currentTimeMillis() - last_tick);
-                int draw_x = 0;
-                int draw_y = 0;
+
                 if (time >= DELAY) //the delay time has passed. set next frame
                 {
-                    last_tick = System.currentTimeMillis();
-                    drawPathFromPoints2(pointSets.get(play_frame));
-                    play_frame++;
 
+                    last_tick = System.currentTimeMillis();
+                    drawPathFromPoints2(pointSets.get(play_frame).points);
+                    play_frame++;
                     postInvalidate();
+
                 }
                 else //still within delay. redraw current frame
                 {
-                    drawPathFromPoints2(pointSets.get(play_frame));
+
+                    drawPathFromPoints2(pointSets.get(play_frame).points);
                     postInvalidate();
+
                 }
             }
         }
-       // drawPathFromPoints(MorphActivity.firstImagePoints);
-       // drawPathFromPoints(MorphActivity.secondImagePoints);
-        for(ArrayList<MyPoint> pointz : MorphActivity.initialPointSets) {
-            drawPathFromPoints2(pointz);
-        }
 
         canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
+
+
+
+
+        postInvalidate();
     }
 
 
@@ -170,13 +172,12 @@ public class ViewingBoard extends View {
             }
 
             if(i == points.size() - 1) {
-                mCanvas.drawPath(mPath, mPaint);
-                mPath.reset();
+
+               // mPath.reset();
             }
         }
+        mCanvas.drawPath(mPath, mPaint);
     }
-
-
 
     public void drawPathFromPoints2(ArrayList<MyPoint> points) {
         Path mPath = new Path();
@@ -199,20 +200,17 @@ public class ViewingBoard extends View {
             }
 
             if(i == points.size() - 1) {
-                mCanvas.drawPath(mPath, mPaint);
-                mPath.reset();
+               // mCanvas.drawPath(mPath, mPaint);
+               // mPath.reset();
             }
         }
+        mCanvas.drawPath(mPath, mPaint);
     }
 
 
     public void startDrawing() {
+        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).points.size();
 
-        // calculate all frames
-        // initialPointSets
-
-        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).size();
-        SubdividePoints.NUM_POINT_SETS_INPUT = 5;
         //pointSets = SubdividePoints.runSubdividePoints(convert(MorphActivity.firstImagePoints), convert(MorphActivity.secondImagePoints));
         pointSets = SubdividePoints.runSubdividePoints(MorphActivity.initialPointSets);
       //  currentPoints = MorphActivity.initialPointSets.get(0).size();

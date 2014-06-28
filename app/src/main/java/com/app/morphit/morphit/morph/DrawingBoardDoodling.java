@@ -267,6 +267,7 @@ public class DrawingBoardDoodling extends View {
         return mPath;
     }
 
+
     public void setErase(boolean isErase){
         erase=isErase;
         if(erase) pathPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
@@ -304,4 +305,21 @@ public class DrawingBoardDoodling extends View {
 
         invalidate();
     }
+
+    public ArrayList<Bitmap> getBitmapArray() {
+       // pathBitmaps
+        ArrayList<Bitmap> result = new ArrayList<Bitmap>();
+
+        for(int i = 0; i < pathBitmaps.get(0).size(); i++) {
+            Bitmap bmp = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+            bmp.eraseColor(Color.WHITE);
+            Canvas canvas = new Canvas(bmp);
+            for(int j = 0; j < pathBitmaps.size(); j++) {
+                canvas.drawBitmap(pathBitmaps.get(j).get(i), 0, 0, mBitmapPaint);
+            }
+            result.add(bmp);
+        }
+        return result;
+    }
+
 }
