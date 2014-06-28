@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.morphit.morphit.morph.MorphActivity;
+import com.app.morphit.morphit.morph.SubdividePoints;
 
 
 public class MainMenu extends Activity {
@@ -18,6 +19,8 @@ public class MainMenu extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        SubdividePoints.runSubdividePoints();
 
         final Context ctx = this;
 
