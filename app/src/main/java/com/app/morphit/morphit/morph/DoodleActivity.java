@@ -28,7 +28,6 @@ public class DoodleActivity extends Activity{
     Paint pathPaint;
 
     static DrawingBoardDoodling drawingBoard;
-    static ViewingBoardDoodling viewingBoard;
     static ViewFlipper flipper;
     Button viewButton;
 
@@ -91,7 +90,6 @@ public class DoodleActivity extends Activity{
         };
         flipper = (ViewFlipper) findViewById(R.id.flipper);
         drawingBoard = (DrawingBoardDoodling) findViewById(R.id.drawBoard);
-        viewingBoard = (ViewingBoardDoodling) findViewById(R.id.viewBoard);
 
         flipper.setDisplayedChild(0);
     }
@@ -167,8 +165,6 @@ points1 = convertPathToPoints2(path1, factor, points2.size());
         //secondImagePoints = points2;
         //Log.d("arraySize", "" + points1.size() + " " + points2.size());
         flipper.showNext();
-
-        viewingBoard.startDrawing();
     }
     public static ArrayList<MyPoint> convertPathToPoints3(ArrayList<MyPoint> newImagePoints, int factor, int remain, ArrayList<MyPoint> orignal){
         Log.d("arrays", "factor1 " + factor);

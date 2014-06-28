@@ -39,6 +39,9 @@ public class MorphActivity extends Activity {
     static ArrayList<MyPoint> firstImagePoints;
     static ArrayList<MyPoint> secondImagePoints;
 
+    static ArrayList<ArrayList<MyPoint>> initialPointSets;
+    static ArrayList<Path> initialPaths;
+
    // static ArrayList<Path> firstPath;
   //  static ArrayList<Path> secondPath;
 
@@ -51,8 +54,9 @@ public class MorphActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
-        firstImagePoints = new ArrayList<MyPoint>();
-        secondImagePoints = new ArrayList<MyPoint>();
+
+        initialPointSets = new ArrayList<ArrayList<MyPoint>>();
+        initialPaths = new ArrayList<Path>();
 
         path1 = new Path();
         path2 = new Path();
@@ -115,54 +119,41 @@ public class MorphActivity extends Activity {
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
             currPaint=(ImageButton)view;
         }
-
-
     }
 
 
     static void drawingDone() {
 
-        ArrayList<MyPoint> points1 = convertPathToPoints(path1, 10);
-        ArrayList<MyPoint> points2 = convertPathToPoints(path2, 10);
-        Log.d("arrays", "" + points1.size() + " " + points2.size());
 
-        if(points1.size() < 2 || points2.size() < 2) {
-                       return;
+
+        // create an array of arrays of points from the array of paths.
+        ArrayList<ArrayList<MyPoint>> tempInitialPointSets = new ArrayList<ArrayList<MyPoint>>();
+        int max = -1;
+        for(Path p : initialPaths) {
+            ArrayList<MyPoint> pointSet = convertPathToPoints(p,20);
+            if(max < pointSet.size())
+                max = pointSet.size();
+            if(pointSet.size() > 2)
+                tempInitialPointSets.add(convertPathToPoints(p, 20));
+        }
+        // now that we have a max, we normalize all points to this.
+
+        if(max <= 2)
+            return;
+        for(int i = 0; i < tempInitialPointSets.size(); i++) {
+            initialPointSets.add(normalize(tempInitialPointSets.get(i), max));
+            Log.d("length", "" + i + " " + initialPointSets.get(i).size());
         }
 
-        // divide small by bigger one to get a factor
-        double factor = 0.0;
-        if(points1.size() > points2.size()) {
-            int factor1 = points1.size() /points2.size();
-            int remain = points1.size() % points2.size();
-            Log.d("arrays", "factor2 " + factor1);
-            firstImagePoints = points1;
-            secondImagePoints = convertPathToPoints3(secondImagePoints, factor1, remain, points2);
-            //points2 = convertPathToPoints2(path2, factor, points1.size()); // points2 is less than the other one
-
-        } else if(points1.size() < points2.size()){
-            int factor1 = points2.size() /points1.size();
-            int remain = points2.size() % points1.size();
-            Log.d("arrays", "factor1 " + factor1);
-            Log.d("arrays", "remain " + remain);
-            secondImagePoints = points2;
-            firstImagePoints= convertPathToPoints3(firstImagePoints, factor1, remain, points1);
-           /* if(factor > 0) {
-                points1 = convertPathToPoints2(path1, factor, points2.size());
-            }*/
-        }
-        else{
-            firstImagePoints = points1;
-            secondImagePoints = points2;
-        }
-        Log.d("arraySize", "" + firstImagePoints.size() + " " + secondImagePoints.size());
-
-        //firstImagePoints = points1;
-        //secondImagePoints = points2;
-        //Log.d("arraySize", "" + points1.size() + " " + points2.size());
         flipper.showNext();
 
         viewingBoard.startDrawing();
+    }
+
+    public static ArrayList<MyPoint> normalize(ArrayList<MyPoint> points, int goal) {
+        int factor1 = goal /points.size();
+        int remain = goal % points.size();
+        return convertPathToPoints3(new ArrayList<MyPoint>(), factor1, remain, points);
     }
 
     public static ArrayList<MyPoint> convertPathToPoints3(ArrayList<MyPoint> newImagePoints, int factor, int remain, ArrayList<MyPoint> orignal){
@@ -197,8 +188,7 @@ public class MorphActivity extends Activity {
             // getPosTan(float distance, float[] pos, float[] tan)
             //Log.d("arrays", "i is " + i);
             pm.getPosTan((int)i, coords, tang);
-            MyPoint p = new MyPoint();
-            p.set((int)coords[0], (int)coords[1]);
+            MyPoint p = new MyPoint(coords[0], coords[1]);
             points.add(p);
         }
         //Log.d("arraySize", "" + points.size());

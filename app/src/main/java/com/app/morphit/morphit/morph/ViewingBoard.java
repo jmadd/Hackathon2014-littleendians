@@ -35,7 +35,7 @@ public class ViewingBoard extends View {
     public Bitmap mBitmap;
     public Canvas mCanvas;
 
-    private static final int DELAY = 60; //delay between frames in milliseconds
+    private static final int DELAY = 40; //delay between frames in milliseconds
     private int play_frame = 0;
     private long last_tick = 0;
     private boolean mIsPlaying = false;
@@ -91,12 +91,6 @@ public class ViewingBoard extends View {
         // draw paths
        // Log.d("arrays", "VIEWER! " + MorphActivity.firstImagePoints.size() + " " + MorphActivity.secondImagePoints.size());
 
-
-
-
-
-
-
         if(play_frame == pointSets.size()) // how many sets
         {
             play_frame = 0;
@@ -140,6 +134,10 @@ public class ViewingBoard extends View {
         }
        // drawPathFromPoints(MorphActivity.firstImagePoints);
        // drawPathFromPoints(MorphActivity.secondImagePoints);
+        for(ArrayList<MyPoint> pointz : MorphActivity.initialPointSets) {
+            drawPathFromPoints2(pointz);
+        }
+
         canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
     }
 
@@ -211,12 +209,13 @@ public class ViewingBoard extends View {
     public void startDrawing() {
 
         // calculate all frames
+        // initialPointSets
 
-
-        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.firstImagePoints.size();
-        pointSets = SubdividePoints.runSubdividePoints(convert(MorphActivity.firstImagePoints), convert(MorphActivity.secondImagePoints));
-
-        currentPoints = MorphActivity.firstImagePoints;
+        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).size();
+        SubdividePoints.NUM_POINT_SETS_INPUT = 5;
+        //pointSets = SubdividePoints.runSubdividePoints(convert(MorphActivity.firstImagePoints), convert(MorphActivity.secondImagePoints));
+        pointSets = SubdividePoints.runSubdividePoints(MorphActivity.initialPointSets);
+      //  currentPoints = MorphActivity.initialPointSets.get(0).size();
         mStartPlaying = true;
         postInvalidate();
     }

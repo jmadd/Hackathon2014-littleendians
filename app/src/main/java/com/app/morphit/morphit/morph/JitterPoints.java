@@ -49,7 +49,7 @@ public class JitterPoints {
             outputPoints.add(sceneOutputPoints);
         }
 
-        outputPoints = smooth(outputPoints);
+        //outputPoints = smooth(outputPoints);
         return outputPoints;
     }
 

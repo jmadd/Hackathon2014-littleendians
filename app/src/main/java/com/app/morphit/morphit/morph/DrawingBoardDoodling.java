@@ -114,8 +114,9 @@ public class DrawingBoardDoodling extends View {
             for(ArrayList<Bitmap> currentFrameData : pathBitmaps) {
                 mCanvasSaved.drawBitmap(currentFrameData.get(play_frame), 0, 0, mBitmapPaint);
             }
-            mCanvasSaved.drawPath(mPath, pathPaint);
+
         }
+        mCanvasSaved.drawPath(mPath, pathPaint);
         //  canvas.drawBitmap(framebuffer, 0, 0, mBitmapPaint);
         canvas.drawBitmap(savedPathsBitmap, 0, 0, mBitmapPaint);
         postInvalidate();
