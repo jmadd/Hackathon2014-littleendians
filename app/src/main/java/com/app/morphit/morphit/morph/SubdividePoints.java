@@ -9,12 +9,8 @@ public class SubdividePoints {
     public static final int NUM_POINT_SETS_INPUT  = 2;
     public static final int NUM_POINT_SETS_OUTPUT = 3;
 
-    public static void runSubdividePoints() {
+    public static void runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
         ArrayList<ArrayList<MyPoint> > inputPointSet = new ArrayList <ArrayList<MyPoint>>();
-        ArrayList<MyPoint> startPoints = getStartPoints();
-        ArrayList<MyPoint> endPoints = getEndPoints();
-
-
 
         inputPointSet.add(startPoints);
         inputPointSet.add(endPoints);
@@ -73,23 +69,23 @@ public class SubdividePoints {
     }
 
 
-    public static ArrayList<MyPoint> getStartPoints() {
-        ArrayList<MyPoint> startPoints = new ArrayList<MyPoint>();
-        startPoints.add(new MyPoint(0,0));
-        startPoints.add(new MyPoint(.5,1));
-        startPoints.add(new MyPoint(1,0));
-
-        return startPoints;
-    }
-
-    public static ArrayList<MyPoint> getEndPoints() {
-        ArrayList<MyPoint> endPoints = new ArrayList<MyPoint>();
-        endPoints.add(new MyPoint(1,0));
-        endPoints.add(new MyPoint(0,1));
-        endPoints.add(new MyPoint(.5,1));
-
-        return endPoints;
-    }
+//    public static ArrayList<MyPoint> getStartPoints() {
+//        ArrayList<MyPoint> startPoints = new ArrayList<MyPoint>();
+//        startPoints.add(new MyPoint(0,0));
+//        startPoints.add(new MyPoint(.5,1));
+//        startPoints.add(new MyPoint(1,0));
+//
+//        return startPoints;
+//    }
+//
+//    public static ArrayList<MyPoint> getEndPoints() {
+//        ArrayList<MyPoint> endPoints = new ArrayList<MyPoint>();
+//        endPoints.add(new MyPoint(1,0));
+//        endPoints.add(new MyPoint(0,1));
+//        endPoints.add(new MyPoint(.5,1));
+//
+//        return endPoints;
+//    }
 
 
     /*
