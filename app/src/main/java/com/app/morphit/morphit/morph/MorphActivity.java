@@ -126,6 +126,11 @@ public class MorphActivity extends Activity {
 
         ArrayList<Point> points1 = convertPathToPoints(path1, 10);
         ArrayList<Point> points2 = convertPathToPoints(path2, 10);
+
+
+        if(points1.size() < 2 || points2.size() < 2) {
+            return;
+        }
         Log.d("arrays", "" + points1.size() + " " + points2.size());
         // divide small by bigger one to get a factor
         double factor = 0.0;
