@@ -83,6 +83,8 @@ public class DrawingBoard extends View {
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX() * scaleX;
         float y = event.getY() * scaleY;
+        SubdividePoints.runSubdividePoints();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touch_start(x, y);
