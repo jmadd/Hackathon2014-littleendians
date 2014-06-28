@@ -21,7 +21,6 @@
         android:layout_marginBottom="20dp"
         android:clickable="false"
         android:ellipsize="none"
-        android:shadowColor="red"
         android:layout_alignParentEnd="false"
         android:height="150dp"
         android:shadowDx="5.0"

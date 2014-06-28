@@ -6,7 +6,7 @@ import java.util.*;
 public class SubdividePoints {
 
     public static  int NUM_POINTS_PER_SET = 3; // how many points in the original line
-    public static final int NUM_POINT_SETS_INPUT  = 2;
+    public static final int NUM_POINT_SETS_INPUT  = 4;
     public static  int NUM_POINT_SETS_OUTPUT = 50; // frames
 
     public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
@@ -16,13 +16,10 @@ public class SubdividePoints {
         inputPointSet.add(endPoints);
 
 
+
         ArrayList <ArrayList <MyPoint> > outputPointSet = subdivide(inputPointSet);
 
-
-
-        Log.d("Subdivide", "Midpoint1 = (" + outputPointSet.get(1).get(0).x + "," + outputPointSet.get(1).get(0).y + ")");
-        Log.d("Subdivide","Midpoint2 = (" + outputPointSet.get(1).get(1).x + "," + outputPointSet.get(1).get(1).y + ")");
-        Log.d("Subdivide","Midpoint3 = (" + outputPointSet.get(2).get(0).x + "," + outputPointSet.get(1).get(2).y + ")");
+        //Log.d("Subdivide", "Output1 = (" + outputPointSet.get(1).get(0).x + "," + outputPointSet.get(1).get(0).y + ")");
 
         return outputPointSet;
 
@@ -31,7 +28,7 @@ public class SubdividePoints {
     private static ArrayList <ArrayList <MyPoint> > subdivide (ArrayList <ArrayList <MyPoint> > inputPointSet) {
         ArrayList <ArrayList <MyPoint> > outputPointSet = new ArrayList < ArrayList<MyPoint> >();
 
-        for(int i = 0; i < NUM_POINT_SETS_OUTPUT; i++) {
+        for(int i = 0; i < NUM_POINT_SETS_OUTPUT * (NUM_POINT_SETS_INPUT-1); i++) {
             ArrayList <MyPoint> points = new ArrayList<MyPoint>();
             for (int j = 0; j < NUM_POINTS_PER_SET; j++) {
                 points.add(new MyPoint());
@@ -59,8 +56,8 @@ public class SubdividePoints {
                 for(int k = 1; k < NUM_POINT_SETS_OUTPUT-1; k++) {
                     double x = x1+xInc*k;
                     double y  = y1 + (y2-y1)*(x-x1)/(x2-x1);
-                    outputPointSet.get(k).get(j).x = x;
-                    outputPointSet.get(k).get(j).y = y;
+                    outputPointSet.get(k*i).get(j).x = x;
+                    outputPointSet.get(k*i).get(j).y = y;
                     Log.d("subdivide", "Point" + j + "(" + x + "," + y + ")");
                 }
             }
