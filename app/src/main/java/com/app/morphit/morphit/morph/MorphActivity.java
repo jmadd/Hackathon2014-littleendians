@@ -2,6 +2,8 @@ package com.app.morphit.morphit.morph;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -41,11 +43,12 @@ public class MorphActivity extends Activity {
     static ArrayList<Point> firstImagePoints;
     static ArrayList<Point> secondImagePoints;
 
-    static ArrayList<ArrayList<MyPoint>> initialPointSets;
+    static ArrayList<MyPath> initialPointSets;
     static ArrayList<Path> initialPaths;
 
    // static ArrayList<Path> firstPath;
   //  static ArrayList<Path> secondPath;
+
 
     static Path path1;
     static Path path2;
@@ -58,106 +61,106 @@ public class MorphActivity extends Activity {
 
         firstImagePoints = new ArrayList<Point>();
         secondImagePoints = new ArrayList<Point>();
-        initialPointSets = new ArrayList<ArrayList<MyPoint>>();
+        initialPointSets = new ArrayList<MyPath>();
         initialPaths = new ArrayList<Path>();
         path1 = new Path();
         path2 = new Path();
 
         setContentView(R.layout.activity_morphit);
 
-        drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
-        LinearLayout paintLayout = (LinearLayout) findViewById(R.id.paint_colors);
-        currPaint = (ImageButton) paintLayout.getChildAt(0);
-        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
+                drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
+                LinearLayout paintLayout = (LinearLayout) findViewById(R.id.paint_colors);
+                currPaint = (ImageButton) paintLayout.getChildAt(0);
+                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
 
 
-        View.OnClickListener handler = new View.OnClickListener() {
-            public void onClick(View v) {
-                switch(v.getId()) {
+                View.OnClickListener handler = new View.OnClickListener() {
+                    public void onClick(View v) {
+                        switch (v.getId()) {
 
-                    case R.id.i1:
-                        paintClicked(v);
-                    case R.id.i2:
-                        paintClicked(v);
-                    case R.id.i3:
-                        paintClicked(v);
-                    case R.id.i4:
-                        paintClicked(v);
-                    case R.id.i5:
-                        paintClicked(v);
-                    case R.id.i6:
-                        paintClicked(v);
-                    case R.id.i7:
-                        paintClicked(v);
-                    case R.id.i8:
-                        paintClicked(v);
-                    case R.id.i9:
-                        paintClicked(v);
-                    case R.id.i10:
-                        paintClicked(v);
-                    case R.id.i11:
-                        paintClicked(v);
-                    case R.id.i12:
-                        paintClicked(v);
-                        break;
+                            case R.id.i1:
+                                paintClicked(v);
+                            case R.id.i2:
+                                paintClicked(v);
+                            case R.id.i3:
+                                paintClicked(v);
+                            case R.id.i4:
+                                paintClicked(v);
+                            case R.id.i5:
+                                paintClicked(v);
+                            case R.id.i6:
+                                paintClicked(v);
+                            case R.id.i7:
+                                paintClicked(v);
+                            case R.id.i8:
+                                paintClicked(v);
+                            case R.id.i9:
+                                paintClicked(v);
+                            case R.id.i10:
+                                paintClicked(v);
+                            case R.id.i11:
+                                paintClicked(v);
+                            case R.id.i12:
+                                paintClicked(v);
+                                break;
+                        }
+                    }
+                };
+                flipper = (ViewFlipper) findViewById(R.id.flipper);
+                drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
+                viewingBoard = (ViewingBoard) findViewById(R.id.viewBoard);
+
+                flipper.setDisplayedChild(0);
+            }
+
+            public void paintClicked(View view) {
+                //use chosen color
+                if (view != currPaint) {
+                    //update color
+                    ImageButton imgView = (ImageButton) view;
+                    String color = view.getTag().toString();
+                    drawingBoard.setColor(color);
+                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
+                    currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+                    currPaint = (ImageButton) view;
                 }
             }
-        };
-        flipper = (ViewFlipper) findViewById(R.id.flipper);
-        drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
-        viewingBoard = (ViewingBoard) findViewById(R.id.viewBoard);
-
-        flipper.setDisplayedChild(0);
-    }
-
-    public void paintClicked(View view){
-        //use chosen color
-        if(view!=currPaint){
-            //update color
-            ImageButton imgView = (ImageButton)view;
-            String color = view.getTag().toString();
-            drawingBoard.setColor(color);
-            imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
-            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            currPaint=(ImageButton)view;
-        }
-    }
 
 
-    static void drawingDone() {
+            static void drawingDone() {
 
 
-        // create an array of arrays of points from the array of paths.
-        ArrayList<ArrayList<MyPoint>> tempInitialPointSets = new ArrayList<ArrayList<MyPoint>>();
-        int max = -1;
-        for(Path p : initialPaths) {
-            ArrayList<MyPoint> pointSet = convertPathToPoints(p,20);
-            if(max < pointSet.size())
-                max = pointSet.size();
-            if(pointSet.size() > 2)
-                tempInitialPointSets.add(convertPathToPoints(p, 20));
-        }
-        // now that we have a max, we normalize all points to this.
+                // create an array of arrays of points from the array of paths.
+                ArrayList<MyPath> tempInitialPointSets = new ArrayList<MyPath>();
+                int max = -1;
+                for (Path p : initialPaths) {
+                    MyPath pointSet = convertPathToPoints(p, 20);
+                    if (max < pointSet.points.size())
+                        max = pointSet.points.size();
+                    if (pointSet.points.size() > 2)
+                        tempInitialPointSets.add(convertPathToPoints(p, 20));
+                }
+                // now that we have a max, we normalize all points to this.
 
-        if(max <= 2)
-            return;
-        for(int i = 0; i < tempInitialPointSets.size(); i++) {
-            initialPointSets.add(normalize(tempInitialPointSets.get(i), max));
-            Log.d("length", "" + i + " " + initialPointSets.get(i).size());
-        }
+                if (max <= 2)
+                    return;
+                for (int i = 0; i < tempInitialPointSets.size(); i++) {
+                    initialPointSets.add(normalize(tempInitialPointSets.get(i), max));
+                    Log.d("length", "" + i + " " + initialPointSets.get(i).points.size());
+                }
 
-        flipper.showNext();
+                flipper.showNext();
 
-        viewingBoard.startDrawing();
+                viewingBoard.startDrawing();
 
-        // all lengths should be equal.
+                // all lengths should be equal.
 
-        // figure out which of all the points is the largest.
+                // figure out which of all the points is the largest.
 
 
 /*
-        ArrayList<MyPoint> points1 = convertPathToPoints(path1, 10);
-        ArrayList<MyPoint> points2 = convertPathToPoints(path2, 10);
+        MyPath points1 = convertPathToPoints(path1, 10);
+        MyPath points2 = convertPathToPoints(path2, 10);
 
 
         if(points1.size() < 2 || points2.size() < 2) {
@@ -198,72 +201,71 @@ public class MorphActivity extends Activity {
 
         viewingBoard.startDrawing();
         */
-    }
-
-    public static ArrayList<MyPoint> normalize(ArrayList<MyPoint> points, int goal) {
-        int factor1 = goal /points.size();
-        int remain = goal % points.size();
-        return convertPathToPoints3(new ArrayList<MyPoint>(), factor1, remain, points);
-    }
-
-    public static ArrayList<MyPoint> convertPathToPoints3(ArrayList<MyPoint> newImagePoints, int factor, int remain, ArrayList<MyPoint> orignal){
-        Log.d("arrays", "factor1 " + factor);
-        Log.d("arrays", "remain " + remain);
-        int count = 0;
-        for(MyPoint point: orignal){
-            if(count<remain){
-                for(int i=0; i<=factor; i++){
-                    newImagePoints.add(new MyPoint(point));
-                }
             }
-            else{
-                for(int i=0; i<factor; i++){
-                    newImagePoints.add(new MyPoint(point));
-                }
+
+            public static MyPath normalize(MyPath path, int goal) {
+                int factor1 = goal / path.points.size();
+                int remain = goal % path.points.size();
+                return convertPathToPoints3(new MyPath(), factor1, remain, path);
             }
-            Log.d("arrays", "number " + newImagePoints.size());
-            count++;
-        }
-        return newImagePoints;
 
-    }
+            public static MyPath convertPathToPoints3(MyPath newImagePoints, int factor, int remain, MyPath orignal) {
+                Log.d("arrays", "factor1 " + factor);
+                Log.d("arrays", "remain " + remain);
+                int count = 0;
+                for (MyPoint point : orignal.points) {
+                    if (count < remain) {
+                        for (int i = 0; i <= factor; i++) {
+                            newImagePoints.points.add(new MyPoint(point));
+                        }
+                    } else {
+                        for (int i = 0; i < factor; i++) {
+                            newImagePoints.points.add(new MyPoint(point));
+                        }
+                    }
+                    Log.d("arrays", "number " + newImagePoints.points.size());
+                    count++;
+                }
+                return newImagePoints;
 
-    public static ArrayList<MyPoint> convertPathToPoints(Path mPath, double factor) {
-        ArrayList<MyPoint> points = new ArrayList<MyPoint>();
-        PathMeasure pm = new PathMeasure(mPath, false);
-        float[] coords = new float[2];
-        float[] tang = new float[2];
-        //Log.d("arrays", "path length is " + pm.getLength());
-        for(double i = 0; i < (double)pm.getLength(); i+= (factor)) {
-            // getPosTan(float distance, float[] pos, float[] tan)
-            //Log.d("arrays", "i is " + i);
-            pm.getPosTan((int)i, coords, tang);
-            MyPoint p = new MyPoint(coords[0], coords[1]);
-           // p.set((int)coords[0], (int)coords[1]);
-            points.add(p);
-        }
-        //Log.d("arraySize", "" + points.size());
-        return points;
-    }
+            }
+
+            public static MyPath convertPathToPoints(Path mPath, double factor) {
+                MyPath path = new MyPath();
+                PathMeasure pm = new PathMeasure(mPath, false);
+                float[] coords = new float[2];
+                float[] tang = new float[2];
+                //Log.d("arrays", "path length is " + pm.getLength());
+                for (double i = 0; i < (double) pm.getLength(); i += (factor)) {
+                    // getPosTan(float distance, float[] pos, float[] tan)
+                    //Log.d("arrays", "i is " + i);
+                    pm.getPosTan((int) i, coords, tang);
+                    MyPoint p = new MyPoint(coords[0], coords[1]);
+                    // p.set((int)coords[0], (int)coords[1]);
+                    path.points.add(p);
+                }
+                //Log.d("arraySize", "" + points.size());
+                return path;
+            }
 
 
-    public static ArrayList<Point> convertPathToPoints2(Path mPath, double factor, int goalLength) {
-        ArrayList<Point> points = new ArrayList<Point>();
-        PathMeasure pm = new PathMeasure(mPath, false);
-        float[] coords = new float[2];
-        float[] tang = new float[2];
-        Log.d("arrays", "path length is " + pm.getLength());
-        for(double i = 0; i < (double)(pm.getLength()); i++) {
-            // getPosTan(float distance, float[] pos, float[] tan)
-            Log.d("arrays", "i is " + i);
-            pm.getPosTan((int)(i), coords, tang);
-            Point p = new Point();
-            p.set((int)coords[0], (int)coords[1]);
-            points.add(p);
-        }
-        //Log.d("arraySize", "" + points.size());
-        return points;
-    }
+            public static ArrayList<Point> convertPathToPoints2(Path mPath, double factor, int goalLength) {
+                ArrayList<Point> points = new ArrayList<Point>();
+                PathMeasure pm = new PathMeasure(mPath, false);
+                float[] coords = new float[2];
+                float[] tang = new float[2];
+                Log.d("arrays", "path length is " + pm.getLength());
+                for (double i = 0; i < (double) (pm.getLength()); i++) {
+                    // getPosTan(float distance, float[] pos, float[] tan)
+                    Log.d("arrays", "i is " + i);
+                    pm.getPosTan((int) (i), coords, tang);
+                    Point p = new Point();
+                    p.set((int) coords[0], (int) coords[1]);
+                    points.add(p);
+                }
+                //Log.d("arraySize", "" + points.size());
+                return points;
+            }
 
 
 
@@ -274,4 +276,4 @@ public class MorphActivity extends Activity {
         paintColor = Color.parseColor(newColor);
         pathPaint.setColor(paintColor);
     }*/
-}
+        }

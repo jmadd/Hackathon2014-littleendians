@@ -45,7 +45,7 @@ public class ViewingBoard extends View {
 
 
     ArrayList<Point> currentPoints = new ArrayList<Point>();
-    ArrayList<ArrayList<MyPoint>> pointSets = new ArrayList<ArrayList<MyPoint>>();
+    ArrayList<MyPath> pointSets = new ArrayList<MyPath>();
     public ViewingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
         mPath = new Path();
@@ -120,22 +120,22 @@ public class ViewingBoard extends View {
                 if (time >= DELAY) //the delay time has passed. set next frame
                 {
                     last_tick = System.currentTimeMillis();
-                    drawPathFromPoints2(pointSets.get(play_frame));
+                    drawPathFromPoints2(pointSets.get(play_frame).points);
                     play_frame++;
 
                     postInvalidate();
                 }
                 else //still within delay. redraw current frame
                 {
-                    drawPathFromPoints2(pointSets.get(play_frame));
+                    drawPathFromPoints2(pointSets.get(play_frame).points);
                     postInvalidate();
                 }
             }
         }
        // drawPathFromPoints(MorphActivity.firstImagePoints);
        // drawPathFromPoints(MorphActivity.secondImagePoints);
-        for(ArrayList<MyPoint> pointz : MorphActivity.initialPointSets) {
-            drawPathFromPoints2(pointz);
+        for(MyPath path : MorphActivity.initialPointSets) {
+            drawPathFromPoints2(path.points);
         }
 
         canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
@@ -211,7 +211,7 @@ public class ViewingBoard extends View {
         // calculate all frames
         // initialPointSets
 
-        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).size();
+        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).points.size();
         SubdividePoints.NUM_POINT_SETS_INPUT = 5;
         //pointSets = SubdividePoints.runSubdividePoints(convert(MorphActivity.firstImagePoints), convert(MorphActivity.secondImagePoints));
         pointSets = SubdividePoints.runSubdividePoints(MorphActivity.initialPointSets);

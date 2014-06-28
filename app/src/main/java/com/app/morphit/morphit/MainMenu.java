@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.app.morphit.morphit.morph.DrawingBoard;
 import com.app.morphit.morphit.morph.MorphActivity;
+import com.app.morphit.morphit.morph.MorphInstructions;
 import com.app.morphit.morphit.morph.SubdividePoints;
 
 
@@ -30,7 +31,7 @@ public class MainMenu extends Activity {
         morphButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ctx, MorphActivity.class));
+                startActivity(new Intent(ctx, MorphInstructions.class));
             }
         });
     }

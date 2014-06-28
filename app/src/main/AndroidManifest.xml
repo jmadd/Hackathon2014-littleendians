@@ -26,6 +26,11 @@
             android:label="MorphIt" >
 
         </activity>
+        <activity
+            android:name=".morph.MorphInstructions"
+            android:label="MorphItInstructions" >
+
+        </activity>
     </application>
 
 </manifest>
