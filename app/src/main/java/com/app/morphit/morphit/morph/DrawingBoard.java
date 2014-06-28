@@ -7,9 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,15 +28,20 @@ public class DrawingBoard extends View {
     int frameBufferHeight;
 
     Path mPath;
-    ArrayList<Integer> firstImagePoints;
-    ArrayList<Integer> secondImagePoints;
+
 
     Paint pathPaint;
 
     Bitmap framebuffer;
+    Bitmap savedPathsBitmap;
     Canvas mCanvas;
 
+    Canvas mCanvasSaved;
+
     Paint mBitmapPaint;
+
+    int numDrawings = 0;
+
 
     public DrawingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -53,10 +60,17 @@ public class DrawingBoard extends View {
         pathPaint.setStrokeWidth(16);
 
         mBitmapPaint = new Paint();
-        pathPaint.setColor(0xFF000000);
+        mBitmapPaint.setColor(0xFF000000);
 
-        framebuffer = Bitmap.createBitmap(480, 800, Bitmap.Config.RGB_565);
+        framebuffer = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(framebuffer);
+
+        framebuffer.eraseColor(Color.WHITE);
+
+        savedPathsBitmap = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        mCanvasSaved = new Canvas(savedPathsBitmap);
+        savedPathsBitmap.eraseColor(Color.WHITE);
+
 
         height = metrics.heightPixels;
         width = metrics.widthPixels;
@@ -73,10 +87,14 @@ public class DrawingBoard extends View {
     protected void onDraw(Canvas canvas) {
         canvas.scale((float) width / 480.0f, (float) height / 800.0f);
 
-        framebuffer.eraseColor(Color.WHITE);
-        mCanvas.drawPath(mPath, pathPaint);
 
-        canvas.drawBitmap(framebuffer, 0, 0, mBitmapPaint);
+      //  framebuffer.eraseColor(Color.WHITE);
+
+        mCanvasSaved.drawPath(mPath, pathPaint);
+
+
+      //  canvas.drawBitmap(framebuffer, 0, 0, mBitmapPaint);
+        canvas.drawBitmap(savedPathsBitmap, 0, 0, mBitmapPaint);
     }
 
     @Override
@@ -105,6 +123,7 @@ public class DrawingBoard extends View {
     private static final float TOUCH_TOLERANCE = 2;
 
     private void touch_start(float x, float y) {
+
         mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
@@ -126,10 +145,24 @@ public class DrawingBoard extends View {
         mPath.lineTo(mX, mY);
 
         // commit the path to the other canvas with the other framebuffer.
+        mCanvasSaved.drawPath(mPath, pathPaint);
 
+        if(numDrawings == 0) {
+            MorphActivity.path1 = new Path(mPath);
+        } else {
+            MorphActivity.path2 = new Path(mPath);
+        }
+
+        numDrawings++;
+        if(numDrawings > 1) {
+            numDrawings = 0;
+            MorphActivity.drawingDone();
+        }
         mPath.reset();
         mPath = new Path();
     }
+
+
 
 
 }
