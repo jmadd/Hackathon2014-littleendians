@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+
 import java.util.ArrayList;
 
 public class DrawingBoard extends View {
@@ -30,7 +31,8 @@ public class DrawingBoard extends View {
     ArrayList<Integer> secondImagePoints;
 
     Paint pathPaint;
-
+    //initial color
+    private int paintColor = 0xFF660000;
     Bitmap framebuffer;
     Canvas mCanvas;
 
@@ -131,5 +133,11 @@ public class DrawingBoard extends View {
         mPath = new Path();
     }
 
+    public void setColor(String newColor){
+//set color
+        invalidate();
+        paintColor = Color.parseColor(newColor);
+        pathPaint.setColor(paintColor);
+    }
 
 }

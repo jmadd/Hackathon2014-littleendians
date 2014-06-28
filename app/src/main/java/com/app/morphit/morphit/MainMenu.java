@@ -8,12 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import com.app.morphit.morphit.morph.DrawingBoard;
 import com.app.morphit.morphit.morph.MorphActivity;
 
 
 public class MainMenu extends Activity {
 
+    private DrawingBoard drawingBoard;
+    private ImageButton currPaint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,4 +53,5 @@ public class MainMenu extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
