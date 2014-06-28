@@ -35,6 +35,17 @@ public class ViewingBoard extends View {
     public Bitmap mBitmap;
     public Canvas mCanvas;
 
+    private static final int DELAY = 140; //delay between frames in milliseconds
+    private int play_frame = 0;
+    private long last_tick = 0;
+    private boolean mIsPlaying = false;
+    private boolean mStartPlaying = true;
+
+    int numTotalFrames = 30;
+
+
+    ArrayList<Point> currentPoints = new ArrayList<Point>();
+
     public ViewingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
         mPath = new Path();
@@ -79,10 +90,70 @@ public class ViewingBoard extends View {
 
         // draw paths
         Log.d("arrays", "VIEWER! " + MorphActivity.firstImagePoints.size() + " " + MorphActivity.secondImagePoints.size());
+
         drawPathFromPoints(MorphActivity.firstImagePoints);
         drawPathFromPoints(MorphActivity.secondImagePoints);
         canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
+
+
+
+
+
+
+
+        if(play_frame == numTotalFrames)
+        {
+            play_frame = 0;
+        }
+        if (mStartPlaying)
+        {
+            //Log.d(TAG, "starting animation...");
+            play_frame = 0;
+            mStartPlaying = false;
+            mIsPlaying = true;
+            postInvalidate();
+        }
+        else if (mIsPlaying)
+        {
+            if (play_frame >= numTotalFrames)
+            {
+             //   mIsPlaying = false;
+                play_frame = 0;
+                mStartPlaying = false;
+                mIsPlaying = true;
+            }
+            else
+            {
+                long time = (System.currentTimeMillis() - last_tick);
+                int draw_x = 0;
+                int draw_y = 0;
+                if (time >= DELAY) //the delay time has passed. set next frame
+                {
+                    last_tick = System.currentTimeMillis();
+
+                   // canvas.drawBitmap(Di);
+                    play_frame++;
+                    drawNextFrame(); // gets the current points (so if we are at the start it will get firstPoints, and calculates the next set, and draws the path)
+                    postInvalidate();
+                }
+                else //still within delay. redraw current frame
+                {
+                   // canvas.drawBitmap(DispatchActivity.game.sessionFrames.get(play_frame), draw_x, draw_y, mPaint);
+                    drawCurrentPoints(); // draws current point array
+                    postInvalidate();
+                }
+            }
+        }
     }
+
+
+    /**
+     * We know how many frames to generate. Let's say we start out with 10. 10 frames between the two sets of points.
+     *
+     *
+     * @param points
+     */
+
 
     public void drawPathFromPoints(ArrayList<Point> points) {
         Path mPath = new Path();
@@ -111,6 +182,10 @@ public class ViewingBoard extends View {
     }
 
     public void startDrawing() {
+
+        // calculate all frames
+        currentPoints = MorphActivity.firstImagePoints;
+        mStartPlaying = true;
         postInvalidate();
     }
 

@@ -164,7 +164,4 @@ public class DrawingBoard extends View {
         mPath = new Path();
     }
 
-
-
-
 }

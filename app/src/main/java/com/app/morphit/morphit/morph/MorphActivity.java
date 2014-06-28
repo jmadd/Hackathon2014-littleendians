@@ -53,7 +53,6 @@ public class MorphActivity extends Activity {
         drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
         viewingBoard = (ViewingBoard) findViewById(R.id.viewBoard);
 
-
         flipper.setDisplayedChild(0);
     }
 
