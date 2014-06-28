@@ -5,11 +5,11 @@ import java.util.*;
 
 public class SubdividePoints {
 
-    public static final int NUM_POINTS_PER_SET = 3;
+    public static  int NUM_POINTS_PER_SET = 3; // how many points in the original line
     public static final int NUM_POINT_SETS_INPUT  = 2;
-    public static final int NUM_POINT_SETS_OUTPUT = 3;
+    public static  int NUM_POINT_SETS_OUTPUT = 50; // frames
 
-    public static void runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
+    public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
         ArrayList<ArrayList<MyPoint> > inputPointSet = new ArrayList <ArrayList<MyPoint>>();
 
         inputPointSet.add(startPoints);
@@ -18,9 +18,13 @@ public class SubdividePoints {
 
         ArrayList <ArrayList <MyPoint> > outputPointSet = subdivide(inputPointSet);
 
+
+
         Log.d("Subdivide", "Midpoint1 = (" + outputPointSet.get(1).get(0).x + "," + outputPointSet.get(1).get(0).y + ")");
         Log.d("Subdivide","Midpoint2 = (" + outputPointSet.get(1).get(1).x + "," + outputPointSet.get(1).get(1).y + ")");
         Log.d("Subdivide","Midpoint3 = (" + outputPointSet.get(2).get(0).x + "," + outputPointSet.get(1).get(2).y + ")");
+
+        return outputPointSet;
 
     }
 

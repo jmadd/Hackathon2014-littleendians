@@ -20,8 +20,6 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        SubdividePoints.runSubdividePoints();
-
         final Context ctx = this;
 
         Button morphButton = (Button) findViewById(R.id.buttonMorph);

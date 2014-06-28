@@ -6,18 +6,23 @@
     android:layout_height="match_parent"
 
     tools:context=".MorphActivity" >
-    <com.app.morphit.morphit.morph.DrawingBoard
-        android:id ="@+id/drawBoard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    />
 
-    <com.app.morphit.morphit.morph.ViewingBoard
-        android:id ="@+id/viewBoard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ViewFlipper
+        android:id= "@+id/flipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <com.app.morphit.morphit.morph.DrawingBoard
+            android:id ="@+id/drawBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
         />
 
+        <com.app.morphit.morphit.morph.ViewingBoard
+            android:id ="@+id/viewBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        />
+    </ViewFlipper>
 
 
     <Button
