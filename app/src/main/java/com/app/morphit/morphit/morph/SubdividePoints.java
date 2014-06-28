@@ -6,14 +6,15 @@ import java.util.*;
 public class SubdividePoints {
 
     public static  int NUM_POINTS_PER_SET = 3; // how many points in the original line
-    public static final int NUM_POINT_SETS_INPUT  = 2;
+    public static  int NUM_POINT_SETS_INPUT  = 2; // how many initial drawings
     public static  int NUM_POINT_SETS_OUTPUT = 50; // frames
 
-    public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
-        ArrayList<ArrayList<MyPoint> > inputPointSet = new ArrayList <ArrayList<MyPoint>>();
+    // public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
+    public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<ArrayList<MyPoint>> inputPointSet) {
+     //   ArrayList<ArrayList<MyPoint> > inputPointSet = new ArrayList <ArrayList<MyPoint>>();
 
-        inputPointSet.add(startPoints);
-        inputPointSet.add(endPoints);
+      //  inputPointSet.add(startPoints);
+      //  inputPointSet.add(endPoints);
 
 
         ArrayList <ArrayList <MyPoint> > outputPointSet = subdivide(inputPointSet);
@@ -25,12 +26,12 @@ public class SubdividePoints {
         Log.d("Subdivide","Midpoint3 = (" + outputPointSet.get(2).get(0).x + "," + outputPointSet.get(1).get(2).y + ")");
 
         return outputPointSet;
-
     }
 
     private static ArrayList <ArrayList <MyPoint> > subdivide (ArrayList <ArrayList <MyPoint> > inputPointSet) {
         ArrayList <ArrayList <MyPoint> > outputPointSet = new ArrayList < ArrayList<MyPoint> >();
 
+        // initialize
         for(int i = 0; i < NUM_POINT_SETS_OUTPUT; i++) {
             ArrayList <MyPoint> points = new ArrayList<MyPoint>();
             for (int j = 0; j < NUM_POINTS_PER_SET; j++) {

@@ -10,6 +10,11 @@ public class MyPoint {
         this.y = y;
     }
 
+    public MyPoint(MyPoint p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
     public MyPoint() {
         this(0, 0);  // Calls other constructor.
     }

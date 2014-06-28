@@ -149,15 +149,18 @@ public class DrawingBoard extends View {
 
         // commit the path to the other canvas with the other framebuffer.
         mCanvasSaved.drawPath(mPath, pathPaint);
-
+/*
         if(numDrawings == 0) {
             MorphActivity.path1 = new Path(mPath);
         } else {
             MorphActivity.path2 = new Path(mPath);
         }
+*/
+        MorphActivity.initialPaths.add(new Path(mPath));
+
 
         numDrawings++;
-        if(numDrawings > 1) {
+        if(numDrawings > 4) {
             numDrawings = 0;
             MorphActivity.drawingDone();
         }
