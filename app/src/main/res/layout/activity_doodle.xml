@@ -21,7 +21,8 @@
         android:orientation="vertical"
 
         tools:context=".MorphActivity"
-        android:gravity="right">
+        android:gravity="right"
+        android:weightSum="1">
 
 
         <LinearLayout
@@ -183,17 +184,18 @@
 
         <ImageButton
             android:id="@+id/new_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/start_new"
-            android:src="@drawable/new_pic" />
+            android:src="@drawable/new_pic"
+            android:layout_weight="0.03" />
 
         <ImageButton
-            android:id="@+id/save_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/save"
-            android:src="@drawable/save" />
+            android:id="@+id/erase"
+            android:layout_width="64dp"
+            android:layout_height="65dp"
+            android:contentDescription="@string/erase"
+            android:src="@drawable/eraser" />
 
 
     </LinearLayout>

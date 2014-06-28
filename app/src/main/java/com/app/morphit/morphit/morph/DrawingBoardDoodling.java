@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.util.TypedValue;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class DrawingBoardDoodling extends View {
 
 
+    private boolean erase=false;
     ArrayList<ArrayList<Bitmap>> pathBitmaps = new ArrayList<ArrayList<Bitmap>>();
 
     float scaleX;
@@ -35,6 +38,7 @@ public class DrawingBoardDoodling extends View {
     Path mPath;
 
 
+    private Canvas drawCanvas;
     Paint pathPaint;
     //initial color
     private int paintColor = 0xFF660000;
@@ -116,6 +120,7 @@ public class DrawingBoardDoodling extends View {
             }
 
         }
+
         mCanvasSaved.drawPath(mPath, pathPaint);
         //  canvas.drawBitmap(framebuffer, 0, 0, mBitmapPaint);
         canvas.drawBitmap(savedPathsBitmap, 0, 0, mBitmapPaint);
@@ -262,4 +267,41 @@ public class DrawingBoardDoodling extends View {
         return mPath;
     }
 
+    public void setErase(boolean isErase){
+        erase=isErase;
+        if(erase) pathPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        else pathPaint.setXfermode(null);
+
+    }
+
+    public void startNew(Context ctx){
+        //drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        pathBitmaps = new ArrayList<ArrayList<Bitmap>>();
+
+        //DrawingBoardDoodling(ctx,
+
+
+        mPath = new Path();
+        pathPaint = new Paint();
+        pathPaint.setDither(true);
+        pathPaint.setColor(0xFF000000);
+        pathPaint.setStyle(Paint.Style.STROKE);
+        pathPaint.setStrokeJoin(Paint.Join.ROUND);
+        pathPaint.setStrokeCap(Paint.Cap.ROUND);
+        pathPaint.setStrokeWidth(16);
+
+        mBitmapPaint = new Paint();
+        mBitmapPaint.setColor(0xFF000F00);
+
+        framebuffer = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(framebuffer);
+
+        framebuffer.eraseColor(Color.WHITE);
+
+        savedPathsBitmap = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        mCanvasSaved = new Canvas(savedPathsBitmap);
+        savedPathsBitmap.eraseColor(Color.WHITE);
+
+        invalidate();
+    }
 }

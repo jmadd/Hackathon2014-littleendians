@@ -228,4 +228,22 @@ public class ViewingBoard extends View {
         return result;
     }
 
+    public void startNew(){
+        //drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        //pathBitmaps = new ArrayList<ArrayList<Bitmap>>();
+
+        //DrawingBoardDoodling(ctx,
+
+
+        mPath = new Path();
+
+
+        mBitmapPaint = new Paint();
+        mBitmapPaint.setColor(0xFF000F0);
+
+         mCanvas = new Canvas();
+
+         invalidate();
+    }
+
 }

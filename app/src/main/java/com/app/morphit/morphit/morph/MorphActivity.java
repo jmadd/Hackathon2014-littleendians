@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class MorphActivity extends Activity {
 
-    private ImageButton currPaint;
+    private ImageButton currPaint, eraseButton, newButton;
     private int paintColor = 0xFF660000;
     Paint pathPaint;
 
@@ -68,7 +68,11 @@ public class MorphActivity extends Activity {
         currPaint = (ImageButton) paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
 
+        flipper = (ViewFlipper) findViewById(R.id.flipper);
+        drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
+        viewingBoard = (ViewingBoard) findViewById(R.id.viewBoard);
 
+        flipper.setDisplayedChild(0);
         View.OnClickListener handler = new View.OnClickListener() {
             public void onClick(View v) {
                 switch(v.getId()) {
@@ -101,11 +105,30 @@ public class MorphActivity extends Activity {
                 }
             }
         };
-        flipper = (ViewFlipper) findViewById(R.id.flipper);
-        drawingBoard = (DrawingBoard) findViewById(R.id.drawBoard);
-        viewingBoard = (ViewingBoard) findViewById(R.id.viewBoard);
 
-        flipper.setDisplayedChild(0);
+        eraseButton = (ImageButton)findViewById(R.id.erase);
+        eraseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawingBoard.setErase(true);
+                //switch to erase - choose size
+
+            }
+        });
+        newButton = (ImageButton)findViewById(R.id.new_btn);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                drawingBoard.startNew();
+                viewingBoard.startNew();
+                flipper.setDisplayedChild(0);
+                //switch to erase - choose size
+
+            }
+        });
+
+
     }
 
     public void paintClicked(View view){

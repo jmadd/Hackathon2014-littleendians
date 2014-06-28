@@ -1,6 +1,8 @@
 package com.app.morphit.morphit.morph;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
  */
 public class DoodleActivity extends Activity{
 
-    private ImageButton currPaint;
+    private ImageButton currPaint, eraseButton, newButton;
     private int paintColor = 0xFF660000;
     Paint pathPaint;
 
@@ -42,6 +44,8 @@ public class DoodleActivity extends Activity{
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
+        final Context ctx = this;
+
         firstImagePoints = new ArrayList<MyPoint>();
         secondImagePoints = new ArrayList<MyPoint>();
 
@@ -56,6 +60,41 @@ public class DoodleActivity extends Activity{
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_passed));
 
 
+        eraseButton = (ImageButton)findViewById(R.id.erase);
+        eraseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawingBoard.setErase(true);
+                //switch to erase - choose size
+
+            }
+        });
+
+        newButton = (ImageButton)findViewById(R.id.new_btn);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               /* AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
+                newDialog.setTitle("New drawing");
+                newDialog.setMessage("Start new drawing (you will lose the current drawing)?");
+                newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        drawView.startNew();
+                        dialog.dismiss();
+                    }
+                });
+                newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.cancel();
+                    }
+                });
+                newDialog.show();*/
+                drawingBoard.startNew(ctx);
+
+                //switch to erase - choose size
+
+            }
+        });
         View.OnClickListener handler = new View.OnClickListener() {
             public void onClick(View v) {
                 switch(v.getId()) {

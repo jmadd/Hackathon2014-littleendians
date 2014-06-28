@@ -19,6 +19,7 @@ import com.app.morphit.morphit.morph.SubdividePoints;
 
 public class MainMenu extends Activity {
 
+    private ImageButton eraseBtn;
     private DrawingBoard drawingBoard;
     private ImageButton currPaint;
     @Override
@@ -38,6 +39,8 @@ public class MainMenu extends Activity {
                 }
             }
         };*/
+
+
 
 
         Button morphButton = (Button) findViewById(R.id.buttonMorph);

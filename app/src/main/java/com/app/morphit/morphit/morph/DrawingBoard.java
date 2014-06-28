@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 
 public class DrawingBoard extends View {
 
+    private boolean erase=false;
     float scaleX;
     float scaleY;
     int width;
@@ -156,6 +159,7 @@ public class DrawingBoard extends View {
             MorphActivity.path2 = new Path(mPath);
         }
 */
+
         MorphActivity.initialPaths.add(new Path(mPath));
 
 
@@ -175,6 +179,41 @@ public class DrawingBoard extends View {
         paintColor = Color.parseColor(newColor);
         pathPaint.setColor(paintColor);
     }
+    public void setErase(boolean isErase){
+        erase=isErase;
+        if(erase) pathPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        else pathPaint.setXfermode(null);
+    }
 
+    public void startNew(){
+        //drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        //pathBitmaps = new ArrayList<ArrayList<Bitmap>>();
+
+        //DrawingBoardDoodling(ctx,
+
+
+        mPath = new Path();
+        pathPaint = new Paint();
+        pathPaint.setDither(true);
+        pathPaint.setColor(0xFF000000);
+        pathPaint.setStyle(Paint.Style.STROKE);
+        pathPaint.setStrokeJoin(Paint.Join.ROUND);
+        pathPaint.setStrokeCap(Paint.Cap.ROUND);
+        pathPaint.setStrokeWidth(16);
+
+        mBitmapPaint = new Paint();
+        mBitmapPaint.setColor(0xFF000F00);
+
+        framebuffer = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(framebuffer);
+
+        framebuffer.eraseColor(Color.WHITE);
+
+        savedPathsBitmap = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        mCanvasSaved = new Canvas(savedPathsBitmap);
+        savedPathsBitmap.eraseColor(Color.WHITE);
+
+        invalidate();
+    }
 
 }
