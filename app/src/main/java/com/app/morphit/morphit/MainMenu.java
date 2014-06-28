@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.app.morphit.morphit.morph.DoodleActivity;
 import com.app.morphit.morphit.morph.DrawingBoard;
 import com.app.morphit.morphit.morph.MorphActivity;
 import com.app.morphit.morphit.morph.MorphInstructions;
@@ -26,6 +28,18 @@ public class MainMenu extends Activity {
         setContentView(R.layout.activity_main_menu);
 
         final Context ctx = this;
+       /* Button.OnClickListener handler = new Button.OnClickListener(){
+            public void onClick(View v){
+                switch(v.getId()){
+
+                    case R.id.buttonMorph:
+                        startActivity(new Intent(ctx, MorphActivity.class));
+                    case R.id.buttonDoodle:
+                        startActivity(new Intent(ctx, DoodleActivity.class));
+                }
+            }
+        };*/
+
 
         Button morphButton = (Button) findViewById(R.id.buttonMorph);
         morphButton.setOnClickListener(new View.OnClickListener() {
@@ -34,6 +48,15 @@ public class MainMenu extends Activity {
                 startActivity(new Intent(ctx, MorphInstructions.class));
             }
         });
+        Button doodleButton = (Button) findViewById(R.id.buttonDoodle);
+        doodleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ctx, DoodleActivity.class));
+            }
+        });
+
+
     }
 
 

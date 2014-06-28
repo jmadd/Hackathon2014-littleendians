@@ -7,17 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <com.app.morphit.morphit.morph.DrawingBoard
+        <com.app.morphit.morphit.morph.DrawingBoardDoodling
             android:id ="@+id/drawBoard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-        <com.app.morphit.morphit.morph.ViewingBoard
-            android:id ="@+id/viewBoard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
 
     </ViewFlipper>
     <LinearLayout
@@ -27,8 +21,7 @@
         android:orientation="vertical"
 
         tools:context=".MorphActivity"
-        android:gravity="right"
-        android:weightSum="1">
+        android:gravity="right">
 
 
         <LinearLayout
@@ -190,27 +183,19 @@
 
         <ImageButton
             android:id="@+id/new_btn"
-            android:layout_width="64dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/start_new"
-            android:src="@drawable/new_pic"
-            android:layout_weight="0.03" />
+            android:src="@drawable/new_pic" />
 
         <ImageButton
-            android:id="@+id/erase"
-            android:layout_width="64dp"
-            android:layout_height="65dp"
-            android:contentDescription="@string/erase"
-            android:src="@drawable/eraser" /><![CDATA[
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/save"
+            android:src="@drawable/save" />
 
 
-
-        />
-
-
-
-
-    ]]>
     </LinearLayout>
 
 

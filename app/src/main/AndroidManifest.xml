@@ -23,6 +23,13 @@
 
         <activity
             android:name=".morph.MorphActivity"
+
+            android:label="MorphIt" >
+
+        </activity>
+        <activity
+            android:name=".morph.DoodleActivity"
+
             android:label="MorphIt" >
 
         </activity>

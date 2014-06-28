@@ -44,8 +44,13 @@ public class ViewingBoard extends View {
     int numTotalFrames = 30;
 
 
+<<<<<<< HEAD
     ArrayList<Point> currentPoints = new ArrayList<Point>();
     ArrayList<MyPath> pointSets = new ArrayList<MyPath>();
+=======
+    ArrayList<MyPoint> currentPoints = new ArrayList<MyPoint>();
+    ArrayList<ArrayList<MyPoint>> pointSets = new ArrayList<ArrayList<MyPoint>>();
+>>>>>>> da5e5b895c105d5707214b9407ab3e1a302a9921
     public ViewingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
         mPath = new Path();
@@ -220,9 +225,9 @@ public class ViewingBoard extends View {
         postInvalidate();
     }
 
-    public ArrayList<MyPoint> convert(ArrayList<Point> points) {
+    public ArrayList<MyPoint> convert(ArrayList<MyPoint> points) {
         ArrayList<MyPoint> result = new ArrayList<MyPoint>();
-        for(Point p : points) {
+        for(MyPoint p : points) {
             result.add(new MyPoint((double)p.x, (double)p.y));
         }
         return result;
