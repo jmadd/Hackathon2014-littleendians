@@ -35,7 +35,7 @@ public class ViewingBoard extends View {
     public Bitmap mBitmap;
     public Canvas mCanvas;
 
-    private static final int DELAY = 60; //delay between frames in milliseconds
+    private static final int DELAY = 40; //delay between frames in milliseconds
     private int play_frame = 0;
     private long last_tick = 0;
     private boolean mIsPlaying = false;

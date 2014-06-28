@@ -5,9 +5,9 @@ import java.util.*;
 
 public class SubdividePoints {
 
-    public static  int NUM_POINTS_PER_SET = 3; // how many points in the original lin
-    public static  int NUM_POINT_SETS_INPUT  = 4; // how many initial drawings
-    public static  int NUM_POINT_SETS_OUTPUT = 50; // frames
+    public static  int NUM_POINTS_PER_SET; // how many points in the original lin
+    public static  int NUM_POINT_SETS_INPUT; // how many initial drawings
+    public static  int NUM_POINT_SETS_OUTPUT = 20; // frames
 
     // public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<MyPoint> startPoints, ArrayList<MyPoint> endPoints) {
     public static ArrayList<ArrayList<MyPoint>> runSubdividePoints(ArrayList<ArrayList<MyPoint>> inputPointSet) {
@@ -52,16 +52,16 @@ public class SubdividePoints {
                 double x2 = points2.get(j).x;
                 double y2 = points2.get(j).y;
 
-                Log.d("subdivide", "p1= ("+ "(" + x1 + "," + y1 + ")");
-                Log.d("subdivide", "p2= ("+ "(" + x2 + "," + y2 + ")");
+                //Log.d("subdivide", "p1= ("+ "(" + x1 + "," + y1 + ")");
+                //Log.d("subdivide", "p2= ("+ "(" + x2 + "," + y2 + ")");
                 double xDist = x2-x1;
                 double xInc  = xDist / (NUM_POINT_SETS_OUTPUT-1);
                 for(int k = 1; k < NUM_POINT_SETS_OUTPUT-1; k++) {
                     double x = x1+xInc*k;
                     double y  = y1 + (y2-y1)*(x-x1)/(x2-x1);
-                    outputPointSet.get(k*i).get(j).x = x;
-                    outputPointSet.get(k*i).get(j).y = y;
-                    Log.d("subdivide", "Point" + j + "(" + x + "," + y + ")");
+                    outputPointSet.get(k+i*NUM_POINT_SETS_OUTPUT).get(j).x = x;
+                    outputPointSet.get(k+i*NUM_POINT_SETS_OUTPUT).get(j).y = y;
+                    //Log.d("subdivide", "Point" + j + "(" + x + "," + y + ")");
                 }
             }
         }

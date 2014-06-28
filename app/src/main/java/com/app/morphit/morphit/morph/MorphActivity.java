@@ -131,11 +131,11 @@ public class MorphActivity extends Activity {
         ArrayList<ArrayList<MyPoint>> tempInitialPointSets = new ArrayList<ArrayList<MyPoint>>();
         int max = -1;
         for(Path p : initialPaths) {
-            ArrayList<MyPoint> pointSet = convertPathToPoints(p,10);
+            ArrayList<MyPoint> pointSet = convertPathToPoints(p,20);
             if(max < pointSet.size())
                 max = pointSet.size();
             if(pointSet.size() > 2)
-                tempInitialPointSets.add(convertPathToPoints(p, 10));
+                tempInitialPointSets.add(convertPathToPoints(p, 20));
         }
         // now that we have a max, we normalize all points to this.
 
