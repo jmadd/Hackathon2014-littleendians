@@ -14,8 +14,6 @@ public class SubdividePoints {
         ArrayList<MyPoint> startPoints = getStartPoints();
         ArrayList<MyPoint> endPoints = getEndPoints();
 
-
-
         inputPointSet.add(startPoints);
         inputPointSet.add(endPoints);
 

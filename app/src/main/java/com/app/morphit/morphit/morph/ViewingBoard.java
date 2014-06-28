@@ -184,6 +184,10 @@ public class ViewingBoard extends View {
     public void startDrawing() {
 
         // calculate all frames
+
+        ArrayList<ArrayList<MyPoint>> pointSets = ;
+        SubdividePoints.runSubdividePoints();
+
         currentPoints = MorphActivity.firstImagePoints;
         mStartPlaying = true;
         postInvalidate();
