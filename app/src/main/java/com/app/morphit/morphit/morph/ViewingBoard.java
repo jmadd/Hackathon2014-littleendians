@@ -44,8 +44,9 @@ public class ViewingBoard extends View {
     int numTotalFrames = 30;
 
 
-    ArrayList<MyPoint> currentPoints = new ArrayList<MyPoint>();
-    ArrayList<ArrayList<MyPoint>> pointSets = new ArrayList<ArrayList<MyPoint>>();
+
+    ArrayList<MyPath> pointSets = new ArrayList<MyPath>();
+
     public ViewingBoard(Context c, AttributeSet attrs) {
         super(c, attrs);
         mPath = new Path();
@@ -119,7 +120,7 @@ public class ViewingBoard extends View {
                 {
 
                     last_tick = System.currentTimeMillis();
-                    drawPathFromPoints2(pointSets.get(play_frame));
+                    drawPathFromPoints2(pointSets.get(play_frame).points);
                     play_frame++;
                     postInvalidate();
 
@@ -127,22 +128,16 @@ public class ViewingBoard extends View {
                 else //still within delay. redraw current frame
                 {
 
-                    drawPathFromPoints2(pointSets.get(play_frame));
+                    drawPathFromPoints2(pointSets.get(play_frame).points);
                     postInvalidate();
 
                 }
             }
         }
-       // drawPathFromPoints(MorphActivity.firstImagePoints);
-       // drawPathFromPoints(MorphActivity.secondImagePoints);
-       // for(ArrayList<MyPoint> pointz : MorphActivity.initialPointSets) {
-       //     drawPathFromPoints2(pointz);
-        //}
-    //    if(play_frame < pointSets.size() - 1) {
-         //   drawPathFromPoints2(pointSets.get(play_frame));
-            canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
 
-     //   }
+        canvas.drawBitmap(mBitmap, 0,0, mBitmapPaint);
+
+
 
 
         postInvalidate();
@@ -214,11 +209,7 @@ public class ViewingBoard extends View {
 
 
     public void startDrawing() {
-
-        // calculate all frames
-        // initialPointSets
-
-        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).size();
+        SubdividePoints.NUM_POINTS_PER_SET = MorphActivity.initialPointSets.get(0).points.size();
 
         //pointSets = SubdividePoints.runSubdividePoints(convert(MorphActivity.firstImagePoints), convert(MorphActivity.secondImagePoints));
         pointSets = SubdividePoints.runSubdividePoints(MorphActivity.initialPointSets);
