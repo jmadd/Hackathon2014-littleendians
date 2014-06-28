@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class JitterPoints {
 
-    private static final int NUM_SCENES = 3;
-    private static final double JITTER_RANGE = .1;
+    private static final int NUM_SCENES = 4;
+    private static final double JITTER_RANGE = 5;
 
 
     public static void testJitterPoints() {
@@ -60,8 +60,8 @@ public class JitterPoints {
         //first element
         output.add(input.get(0));
         //average elements
-        for (int i = 0; i<input.size(); i++) {
-            for(int j = 0; j < input.get(i).size()-1; j++) {
+        for (int i = 0; i<input.size(); i+= 2) {
+            for(int j = 0; j < input.get(i).size()-1; j += 2) {
                 MyPoint p0 = input.get(i).get(j);
                 MyPoint p1 = input.get(i).get(j+1);
 

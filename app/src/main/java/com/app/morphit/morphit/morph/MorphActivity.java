@@ -27,8 +27,6 @@ import java.util.ArrayList;
 
 public class MorphActivity extends Activity {
 
-
-
     private ImageButton currPaint;
     private int paintColor = 0xFF660000;
     Paint pathPaint;
@@ -38,8 +36,8 @@ public class MorphActivity extends Activity {
     static ViewFlipper flipper;
     Button viewButton;
 
-    static ArrayList<Point> firstImagePoints;
-    static ArrayList<Point> secondImagePoints;
+    static ArrayList<MyPoint> firstImagePoints;
+    static ArrayList<MyPoint> secondImagePoints;
 
    // static ArrayList<Path> firstPath;
   //  static ArrayList<Path> secondPath;
@@ -53,8 +51,8 @@ public class MorphActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
-        firstImagePoints = new ArrayList<Point>();
-        secondImagePoints = new ArrayList<Point>();
+        firstImagePoints = new ArrayList<MyPoint>();
+        secondImagePoints = new ArrayList<MyPoint>();
 
         path1 = new Path();
         path2 = new Path();
@@ -124,9 +122,14 @@ public class MorphActivity extends Activity {
 
     static void drawingDone() {
 
-        ArrayList<Point> points1 = convertPathToPoints(path1, 10);
-        ArrayList<Point> points2 = convertPathToPoints(path2, 10);
+        ArrayList<MyPoint> points1 = convertPathToPoints(path1, 10);
+        ArrayList<MyPoint> points2 = convertPathToPoints(path2, 10);
         Log.d("arrays", "" + points1.size() + " " + points2.size());
+
+        if(points1.size() < 2 || points2.size() < 2) {
+                       return;
+        }
+
         // divide small by bigger one to get a factor
         double factor = 0.0;
         if(points1.size() > points2.size()) {
@@ -162,19 +165,19 @@ public class MorphActivity extends Activity {
         viewingBoard.startDrawing();
     }
 
-    public static ArrayList<Point> convertPathToPoints3(ArrayList<Point> newImagePoints, int factor, int remain, ArrayList<Point> orignal){
+    public static ArrayList<MyPoint> convertPathToPoints3(ArrayList<MyPoint> newImagePoints, int factor, int remain, ArrayList<MyPoint> orignal){
         Log.d("arrays", "factor1 " + factor);
         Log.d("arrays", "remain " + remain);
         int count = 0;
-        for(Point point: orignal){
+        for(MyPoint point: orignal){
             if(count<remain){
                 for(int i=0; i<=factor; i++){
-                    newImagePoints.add(new Point(point));
+                    newImagePoints.add(new MyPoint(point));
                 }
             }
             else{
                 for(int i=0; i<factor; i++){
-                    newImagePoints.add(new Point(point));
+                    newImagePoints.add(new MyPoint(point));
                 }
             }
             Log.d("arrays", "number " + newImagePoints.size());
@@ -184,8 +187,8 @@ public class MorphActivity extends Activity {
 
     }
 
-    public static ArrayList<Point> convertPathToPoints(Path mPath, double factor) {
-        ArrayList<Point> points = new ArrayList<Point>();
+    public static ArrayList<MyPoint> convertPathToPoints(Path mPath, double factor) {
+        ArrayList<MyPoint> points = new ArrayList<MyPoint>();
         PathMeasure pm = new PathMeasure(mPath, false);
         float[] coords = new float[2];
         float[] tang = new float[2];
@@ -194,7 +197,7 @@ public class MorphActivity extends Activity {
             // getPosTan(float distance, float[] pos, float[] tan)
             //Log.d("arrays", "i is " + i);
             pm.getPosTan((int)i, coords, tang);
-            Point p = new Point();
+            MyPoint p = new MyPoint();
             p.set((int)coords[0], (int)coords[1]);
             points.add(p);
         }
@@ -203,8 +206,8 @@ public class MorphActivity extends Activity {
     }
 
 
-    public static ArrayList<Point> convertPathToPoints2(Path mPath, double factor, int goalLength) {
-        ArrayList<Point> points = new ArrayList<Point>();
+    public static ArrayList<MyPoint> convertPathToPoints2(Path mPath, double factor, int goalLength) {
+        ArrayList<MyPoint> points = new ArrayList<MyPoint>();
         PathMeasure pm = new PathMeasure(mPath, false);
         float[] coords = new float[2];
         float[] tang = new float[2];
@@ -213,7 +216,7 @@ public class MorphActivity extends Activity {
             // getPosTan(float distance, float[] pos, float[] tan)
             Log.d("arrays", "i is " + i);
             pm.getPosTan((int)(i), coords, tang);
-            Point p = new Point();
+            MyPoint p = new MyPoint();
             p.set((int)coords[0], (int)coords[1]);
             points.add(p);
         }
